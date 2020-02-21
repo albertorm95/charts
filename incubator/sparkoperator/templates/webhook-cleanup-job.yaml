@@ -17,8 +17,10 @@ spec:
     spec:
       serviceAccountName: {{ include "sparkoperator.serviceAccountName" . }}
       restartPolicy: OnFailure
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | trim | indent 8 }}
       containers:
-      - name: main
+      - name: clean-secret
         image: {{ .Values.operatorImageName }}:{{ .Values.operatorVersion }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         command:
